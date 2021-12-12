@@ -45,7 +45,7 @@ def choose_model(arg):
         # model.fit(trainX, trainY, train_wt)
     elif arg == 'svm':
         from sklearn import svm
-        model = svm.SVC(C=3)
+        model = svm.SVC()
         # model = svm.SVC(C=3, kernel='rbf', gamma=10, decision_function_shape='ovr')
         # model.fit(train_data, train_label.ravel())  # ravel函数在降维时默认是行序优先
     elif arg == 'k-neighbor':

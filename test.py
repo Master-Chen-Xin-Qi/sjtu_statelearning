@@ -22,7 +22,7 @@ import os
 if __name__ == '__main__':
     test_data = np.load('./data_npy/test_data.npy')
     parser = argparse.ArgumentParser(description='Four Training Models')
-    parser.add_argument('-m', '--model', type=str, default='mlp', choices=arg_list)
+    parser.add_argument('-m', '--model', type=str, default='svm', choices=arg_list)
     args = parser.parse_args()
     arg = args.model
     print(arg)
@@ -38,7 +38,7 @@ if __name__ == '__main__':
         test_data_reshape = test_data.reshape(-1, data_len*data_width)
         save_model = save_path + '/' + arg + '.m'
         model = joblib.load(save_model)
-        results = model.predict(test_data_reshape)
+        results = model.predict(test_data_reshape).astype('int64')
     np.save(result_path+'/'+arg+'_result.npy', results)
     # 保存为csv文件
     test_file = []
