@@ -276,33 +276,3 @@ class FCN_LSTM(nn.Module):
 
 
 
-
-# if __name__ == '__main__':
-#     # Bert参数
-#     parser1 = argparse.ArgumentParser(description='Bert')
-#     parser1.add_argument('--n_heads', type=int, default=4)
-#     parser1.add_argument('--n_layer', type=int, default=4)
-#     parser1.add_argument('--hidden', type=int, default=72)
-#     parser1.add_argument('--hidden_ff', type=int, default=144)
-#     parser1.add_argument('--seq_len', type=int, default=100)
-#     parser1.add_argument('--feature_num', type=int, default=15)
-#     parser1.add_argument('--emb_norm', type=bool, default=True)
-#     cfg = parser1.parse_args()
-#     # GRU参数
-#     parser2 = argparse.ArgumentParser(description='GRU')
-#     parser2.add_argument('--seq_len', type=int, default=10)
-#     parser2.add_argument('--input', type=int, default=15)
-#     parser2.add_argument('--num_rnn', type=int, default=2)
-#     parser2.add_argument('--num_layers', default=[2, 1])
-#     parser2.add_argument('--rnn_io', default=[[6, 30], [30, 20]])
-#     parser2.add_argument('--num_linear', type=int, default=1)
-#     parser2.add_argument('--linear_io', type=int, default=[[20, 20]])
-#     parser2.add_argument('--activ', type=bool, default=False)
-#     parser2.add_argument('--dropout', type=bool, default=True)
-#     mfg = parser2.parse_args()
-#     model = Transformer(cfg, mfg)
-#     a = torch.randn((128, 100, 15))
-#     out = model(a)
-#     print(out)
-
-
