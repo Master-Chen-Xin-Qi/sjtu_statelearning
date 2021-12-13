@@ -27,10 +27,11 @@ if __name__ == "__main__":
     data, label = np.load('./data_npy/train_data.npy'), np.load('./data_npy/train_label.npy')
 
     parser = argparse.ArgumentParser(description='Four Training Models')
-    parser.add_argument('-m', '--model', type=str, default='rf', choices=arg_list)
+    parser.add_argument('-m', '--model', type=str, default='k-neighbor', choices=arg_list)
     args = parser.parse_args()
     arg = args.model
     model = choose_model(arg)
+    print('Model %s is training!' % arg)
     if arg == 'mlp':
         train_data, vali_data, train_label, vali_label = train_test_split(data, label, test_size=0.2, random_state=0)
         dataset_train = PrepareDataset(train_data, train_label)

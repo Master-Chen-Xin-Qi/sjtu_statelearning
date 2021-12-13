@@ -41,12 +41,12 @@ def choose_model(arg):
         raise Exception("Model not in list!")
     if arg == 'rf':
         from sklearn.ensemble import RandomForestClassifier
-        model = RandomForestClassifier(n_estimators=100)
+        model = RandomForestClassifier(n_estimators=120)
         # model.fit(trainX, trainY, train_wt)
     elif arg == 'svm':
         from sklearn import svm
-        model = svm.SVC()
-        # model = svm.SVC(C=3, kernel='rbf', gamma=10, decision_function_shape='ovr')
+        model = svm.SVC(C=3)
+        # model = svm.SVC(C=3, kernel='rbf', decision_function_shape='ovr')
         # model.fit(train_data, train_label.ravel())  # ravel函数在降维时默认是行序优先
     elif arg == 'k-neighbor':
         from sklearn.neighbors import KNeighborsClassifier
@@ -88,24 +88,20 @@ class MLP(nn.Module):
         self.layer1 = nn.Linear(in_channel, 128)
         self.bn1 = nn.BatchNorm1d(data_len)
         self.relu1 = nn.ReLU()
-        self.pooling1 = nn.AdaptiveAvgPool1d(30)
         self.layer2 = nn.Linear(128, 64)
         self.relu2 = nn.ReLU()
         self.bn2 = nn.BatchNorm1d(data_len)
-        self.pooling2 = nn.AdaptiveAvgPool1d(20)
-        self.layer4 = nn.Linear(64*data_len, label_num)
+        self.layer3 = nn.Linear(64*data_len, label_num)
         self.dropout = nn.Dropout(dropout)
 
     def forward(self, x):
         x = self.bn1(self.relu1(self.layer1(x)))
         x = self.dropout(x)
-        # x = self.pooling1(x)
         x = self.bn2(self.relu2(self.layer2(x)))
         x = self.dropout(x)
-        # x = self.pooling2(x)
         x = x.flatten(start_dim=1)
         x = self.dropout(x)
-        x = self.layer4(x)
+        x = self.layer3(x)
         return x
 
 
@@ -147,7 +143,7 @@ class Transformer(nn.Module):
 
         # To used parameter-sharing strategies
         self.embed = Embeddings(cfg)
-        self.n_layers =cfg.n_layer
+        self.n_layers = cfg.n_layer
         self.attn = MultiHeadedSelfAttention(cfg)
         self.proj = nn.Linear(cfg.hidden, cfg.hidden)
         self.norm1 = LayerNorm(cfg)

@@ -1,1 +1,1 @@
-Epoch 845/1000 Best Train Loss 0.0328 Acc: 0.9897. Validate Loss 1.3524 Accuracy 0.9064
+Epoch 845/1000 Best Train Loss 0.0328 Acc: 0.9897. Validate Loss 1.3524 Acc: 0.9064

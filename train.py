@@ -79,7 +79,7 @@ class Trainer(object):
                 print('Already saved model %s!' % save_model)
                 save_describe = save_path + '/' + 'mlp.txt'
                 f = open(save_describe, 'w')
-                f.write('Epoch %d/%d Best Train Loss %5.4f Acc: %5.4f. Validate Loss %5.4f Accuracy %5.4f'
+                f.write('Epoch %d/%d Best Train Loss %5.4f Acc: %5.4f. Validate Loss %5.4f Acc: %5.4f'
                   % (e + 1, epoch, total_loss / len(train_loader), train_acc, loss_eva, acc))
                 f.close()
         print('The Total Epoch have been reached.')
