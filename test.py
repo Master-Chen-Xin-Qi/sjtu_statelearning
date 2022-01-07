@@ -22,7 +22,7 @@ import os
 if __name__ == '__main__':
     test_data = np.load('./data_npy/test_data.npy')
     parser = argparse.ArgumentParser(description='Four Training Models')
-    parser.add_argument('-m', '--model', type=str, default='k-neighbor', choices=arg_list)
+    parser.add_argument('-m', '--model', type=str, default='mlp', choices=arg_list)
     args = parser.parse_args()
     arg = args.model
     print(arg)

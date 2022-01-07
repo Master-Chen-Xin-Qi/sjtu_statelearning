@@ -24,10 +24,11 @@ from config import batch_size, lr, save_path, arg_list, data_len, data_width, ml
 
 
 if __name__ == "__main__":
+    torch.manual_seed(1)
     data, label = np.load('./data_npy/train_data.npy'), np.load('./data_npy/train_label.npy')
 
     parser = argparse.ArgumentParser(description='Four Training Models')
-    parser.add_argument('-m', '--model', type=str, default='k-neighbor', choices=arg_list)
+    parser.add_argument('-m', '--model', type=str, default='mlp', choices=arg_list)
     args = parser.parse_args()
     arg = args.model
     model = choose_model(arg)

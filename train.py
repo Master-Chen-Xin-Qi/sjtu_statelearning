@@ -11,6 +11,7 @@
 
 import torch
 import torch.nn as nn
+from torch.optim import lr_scheduler
 import time
 from utils import dl_acc_f1
 from config import epoch, save_path
@@ -25,6 +26,7 @@ class Trainer(object):
     def __init__(self, model, optimizer, save_path, save_name, device):
         self.model = model
         self.optimizer = optimizer
+        self.scheduler = lr_scheduler.StepLR(optimizer, step_size=50, gamma=0.95)
         self.save_path = save_path
         self.save_name = save_name
         self.device = device
@@ -55,9 +57,11 @@ class Trainer(object):
             self.model.train()
             train_predict = []
             train_label = []
+            # print(self.optimizer.state_dict()['param_groups'][0]['lr'])
             for i, batch in enumerate(train_loader):
                 # batch = [b.to(self.device) for b in batch]
                 start_time = time.time()
+                self.optimizer.zero_grad()
                 loss, predict, label = self.func_loss(batch)
                 loss.backward()
                 self.optimizer.step()
@@ -77,11 +81,12 @@ class Trainer(object):
                 save_model = self.save_path + '/' + self.save_name + '.pt'
                 torch.save(self.model.state_dict(), save_model)  # 保存最优模型
                 print('Already saved model %s!' % save_model)
-                save_describe = save_path + '/' + 'mlp.txt'
+                save_describe = save_path + '/' + 'mlp_test.txt'
                 f = open(save_describe, 'w')
                 f.write('Epoch %d/%d Best Train Loss %5.4f Acc: %5.4f. Validate Loss %5.4f Acc: %5.4f'
                   % (e + 1, epoch, total_loss / len(train_loader), train_acc, loss_eva, acc))
                 f.close()
+            # self.scheduler.step()  # 调整学习率
         print('The Total Epoch have been reached.')
 
     def validate(self, vali_loader, model_file):

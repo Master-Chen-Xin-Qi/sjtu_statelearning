@@ -96,9 +96,7 @@ class MLP(nn.Module):
 
     def forward(self, x):
         x = self.bn1(self.relu1(self.layer1(x)))
-        x = self.dropout(x)
         x = self.bn2(self.relu2(self.layer2(x)))
-        x = self.dropout(x)
         x = x.flatten(start_dim=1)
         x = self.dropout(x)
         x = self.layer3(x)
@@ -264,11 +262,3 @@ class ClassifierGRU(nn.Module):
             if self.activ:
                 h = F.relu(h)
         return h
-
-
-class FCN_LSTM(nn.Module):
-    def __init__(self):
-        super(FCN_LSTM, self).__init__()
-
-
-
